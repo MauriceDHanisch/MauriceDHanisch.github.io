@@ -17,23 +17,42 @@ def fetch_publications(author_id):
         return author['publications']
     except Exception as e:
         print(f"Error fetching publications: {e}")
-        return []
+
+def format_author_name(name):
+    """
+    Ensures initials have dots.
+    e.g. "M Hanisch" -> "M. Hanisch"
+    e.g. "M. D. Hanisch" -> "M. D. Hanisch" (no change)
+    """
+    parts = name.split()
+    new_parts = []
+    for part in parts:
+        if len(part) == 1 and part.isalpha():
+            new_parts.append(f"{part}.")
+        else:
+            new_parts.append(part)
+    return " ".join(new_parts)
 
 def format_publication(pub):
     # Extract details
-    bib = pub.get('bib', {})
+    # Fill the publication to get more details (authors, venue, etc.)
+    # This might be slower but is necessary for accurate data
+    try:
+        pub = scholarly.fill(pub)
+    except Exception as e:
+        print(f"Warning: Could not fill publication data: {e}")
+    
+    bib = pub['bib']
     title = bib.get('title', 'Untitled')
     year = bib.get('pub_year', 'N/A')
     
     # Author
-    # scholarly 'bib' usually contains 'author' string like "M Hanisch, ..."
-    # or sometimes it's a list in 'author' field of the pub object itself
     authors = bib.get('author', 'Unknown Authors')
     if isinstance(authors, list):
         authors = ", ".join(authors)
-    
-    # Clean up authors string if needed (sometimes has 'and' or different separators)
-    authors = authors.replace(" and ", ", ")
+    elif isinstance(authors, str):
+        # sometimes it's already a string, but we want to ensure consistency
+        pass
     
     # Venue/Journal
     venue = bib.get('journal') or bib.get('conference') or bib.get('eprint') or 'N/A'
@@ -65,12 +84,17 @@ def format_publication(pub):
     elif "arxiv" in venue_lower:
         badge = "Preprint"
 
-    # Bold author name
+    # Format all author names
+    author_list = authors.split(", ")
+    formatted_authors = [format_author_name(a) for a in author_list]
+    authors = ", ".join(formatted_authors)
+
+    # Bold and underline author name
     # Try different variations of the name
-    my_names = ["Maurice Hanisch", "M. Hanisch", "M Hanisch"]
+    my_names = ["Maurice D. Hanisch", "Maurice Hanisch", "M. D. Hanisch", "M. Hanisch"]
     for name in my_names:
         if name in authors:
-            authors = authors.replace(name, f"<b>{name}</b>")
+            authors = authors.replace(name, f"<b><u>{name}</u></b>")
             break # Only replace one instance/variation
 
     return f"""
