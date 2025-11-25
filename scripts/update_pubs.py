@@ -25,13 +25,15 @@ def format_publication(pub):
     title = bib.get('title', 'Untitled')
     year = bib.get('pub_year', 'N/A')
     
-    # Authors (scholarly often gives a string or list, we try to format it)
-    # Note: scholarly 'bib' might not have full author list unless filled, 
-    # but filling every pub is slow/rate-limited. We'll use what's available.
-    # Often 'citation' has more info if we fill, but let's try basic first.
-    # For better author list, we might need to fill each pub, but that's risky for rate limits.
-    # We will use the 'bib' data which usually contains 'author' string.
+    # Author
+    # scholarly 'bib' usually contains 'author' string like "M Hanisch, ..."
+    # or sometimes it's a list in 'author' field of the pub object itself
     authors = bib.get('author', 'Unknown Authors')
+    if isinstance(authors, list):
+        authors = ", ".join(authors)
+    
+    # Clean up authors string if needed (sometimes has 'and' or different separators)
+    authors = authors.replace(" and ", ", ")
     
     # Venue/Journal
     venue = bib.get('journal') or bib.get('conference') or bib.get('eprint') or 'N/A'
@@ -49,17 +51,42 @@ def format_publication(pub):
 
     # Badge logic (simple heuristic)
     badge = "Paper"
-    if "thesis" in title.lower() or "thesis" in venue.lower():
+    venue_lower = venue.lower()
+    if "thesis" in title.lower() or "thesis" in venue_lower:
         badge = "Thesis"
-    elif "preprint" in venue.lower() or "arxiv" in venue.lower():
+    elif "neurips" in venue_lower:
+        badge = "NeurIPS"
+    elif "iclr" in venue_lower:
+        badge = "ICLR"
+    elif "icml" in venue_lower:
+        badge = "ICML"
+    elif "cvpr" in venue_lower:
+        badge = "CVPR"
+    elif "arxiv" in venue_lower:
         badge = "Preprint"
 
+    # Bold author name
+    # Try different variations of the name
+    my_names = ["Maurice Hanisch", "M. Hanisch", "M Hanisch"]
+    for name in my_names:
+        if name in authors:
+            authors = authors.replace(name, f"<b>{name}</b>")
+            break # Only replace one instance/variation
+
     return f"""
-  <li class="pub">
-    <div class="badge">{badge}</div>
-    <div class="title">{title}</div>
-    <div class="meta">{authors} · {venue} · {year}</div>
-    <div class="links"><a href="{url}" target="_blank">View Paper</a></div>
+  <li class="pub-row">
+    <div class="pub-badges">
+      <span class="badge-main">{badge}</span>
+    </div>
+    <div class="pub-content">
+      <div class="pub-title">{title}</div>
+      <div class="pub-authors">{authors}</div>
+      <div class="pub-venue">In <em>{venue}</em>, {year}.</div>
+      <div class="pub-buttons">
+        <a href="{url}" class="btn" target="_blank">PDF</a>
+        <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={AUTHOR_ID}&citation_for_view={pub.get('author_pub_id')}" class="btn" target="_blank">Scholar</a>
+      </div>
+    </div>
   </li>"""
 
 def generate_html(pubs, limit=None):
