@@ -1,0 +1,3 @@
+[submodule "assets/cv_repo"]
+	path = assets/cv_repo
+	url = git@github.com:MauriceDHanisch/CV_MHANISCH_US.git
