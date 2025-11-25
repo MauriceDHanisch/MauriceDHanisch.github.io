@@ -94,7 +94,7 @@ def format_publication(pub):
     my_names = ["Maurice D. Hanisch", "Maurice Hanisch", "M. D. Hanisch", "M. Hanisch"]
     for name in my_names:
         if name in authors:
-            authors = authors.replace(name, f"<b><u>{name}</u></b>")
+            authors = authors.replace(name, f"<u>{name}</u>")
             break # Only replace one instance/variation
 
     return f"""

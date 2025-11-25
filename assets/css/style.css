@@ -518,22 +518,24 @@ hr {
 
 .btn {
   display: inline-block;
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--fg);
+  border-radius: 4px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   color: var(--fg);
   text-decoration: none;
   transition: all 0.2s ease;
-  background: var(--card);
+  background: transparent;
+  letter-spacing: 0.5px;
 }
 
 .btn:hover {
-  border-color: var(--fg);
-  background: var(--fg);
-  color: var(--bg);
+  border-color: var(--link);
+  background: var(--link);
+  color: #fff;
+  /* White text on orange background */
   text-decoration: none;
 }
 
