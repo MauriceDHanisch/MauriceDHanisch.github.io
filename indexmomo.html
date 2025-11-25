@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maurice — Research & Work</title>
+  <meta name="description" content="Personal academic-style website with single-column scroll, dark mode, and modular content." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+  /* THEME TOKENS */
+ /* avatar size drives image AND email width */
+:root { --maxw: 860px; --avatar: 180px; }   /* <-- add --avatar */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap');
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Noto Sans', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+  /* Light theme (default) */
+  [data-theme="light"]{
+    --bg:#ffffff; --fg:#111827; --muted:#4b5563;
+    --link:#e87722; --link-hover:#e87722;
+    --border:#e5e7eb; --card:#fafafa;
+  }
+  /* Dark theme */
+  [data-theme="dark"]{
+    --bg:#0b1020; --fg:#e5e7eb; --muted:#9aa4b2;
+    --link:#e87722; --link-hover:#e87722;
+    --border:#1f2937; --card:#10172a;
+  }
+
+  /* BASE */
+  html,body{
+    margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    line-height:1.65
+  }
+  a{ color:var(--link); text-decoration:none }
+  a:hover{ color:var(--link-hover); text-decoration:underline }
+  .container{ max-width:var(--maxw); margin:0 auto; padding:22px }
+  img{ max-width:100%; height:auto }
+
+  /* HEADER */
+  header{
+    position:sticky; top:0;
+    background:color-mix(in oklab, var(--bg) 92%, transparent);
+    backdrop-filter:saturate(180%) blur(8px);
+    border-bottom:1px solid var(--border); z-index:10;
+  }
+  .nav{ display:flex; align-items:center; }
+  .menu{ margin-left:auto; display:flex; gap:22px; align-items:center; }
+  .menu a{ color:var(--fg); font-weight:600; text-decoration:none }
+  .menu a:hover{ color:var(--link) }
+  .menu a.active{ color:var(--link) }
+  .toggle{
+    border:1px solid var(--border); background:transparent; padding:6px 10px;
+    border-radius:999px; cursor:pointer; color:var(--fg)
+  }
+
+  /* TOP-LEFT ICONS */
+  .top-icons{ display:flex; align-items:center; gap:18px; margin-left:10px; }
+  .top-icons a{ display:flex; align-items:center; justify-content:center; line-height:0;
+    color:var(--fg); transition:color .25s ease, transform .15s ease; }
+  .top-icons a svg{ width:22px; height:22px; color:currentColor }
+  .top-icons a:hover{ color:var(--link) }
+  .top-icons a:hover svg{ transform:scale(1.08) }
+
+  /* LAYOUT */
+  main{ padding-top:26px }
+  section{ margin:36px 0 }
+  h1{ font-size:40px; line-height:1.2; margin:0 }
+  h2{ font-size:20px; margin:0 0 10px; padding-top:8px; border-top:1px solid var(--border) }
+  .subtitle{ color:var(--muted) }
+
+  /* HERO — make left column wider + more gap */
+  /* HERO — left column equals avatar width */
+.hero{
+  display:grid;
+  grid-template-columns: var(--avatar) 1fr; /* left matches image width */
+  column-gap: 40px;
+  align-items:start;
+  margin-top:16px;
+}
+
+/* avatar */
+.hero img{
+  width: var(--avatar);
+  height: var(--avatar);
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+/* portrait column: keep email grouped under photo and centered */
+.portrait{
+  width: var(--avatar);                 /* same width as image */
+  display: flex;
+  flex-direction: column;
+  align-items: center;                  /* center the email under the image */
+  gap: 10px;
+}
+
+.portrait .email-copy{
+  width: 100%;                          /* match the image width */
+  text-align: center;                   /* centered text */
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font: 500 14px/1.4 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--fg);
+  outline-offset: 2px;
+  overflow-wrap: anywhere;              /* never overflow on small screens */
+}
+.portrait .email-copy:hover{
+  color: var(--link);
+  text-decoration: underline;
+}
+
+  .card{ border:1px solid var(--border); border-radius:14px; padding:14px; background:var(--card) }
+
+  /* Publications list (kept) */
+  .pubs{ list-style:none; padding:0; margin:0 }
+  .pub{ border-left:3px solid var(--border); padding:10px 12px; margin:12px 0 }
+  .pub .badge{ display:inline-block; font-size:12px; font-weight:600; border:1px solid var(--border);
+               padding:2px 8px; border-radius:999px; margin-bottom:6px }
+  .pub .title{ font-weight:600 }
+  .pub .meta{ color:var(--muted); font-size:14px }
+  .links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px }
+  .links a{ border:1px solid var(--border); padding:4px 10px; border-radius:999px; font-size:13px; text-decoration:none }
+
+  /* Hide old bottom icon row */
+  .social{ display:none }
+
+  footer{ color:var(--muted); font-size:14px; padding:0 0 24px }
+
+  @media (max-width: 660px){
+  :root { --avatar: 120px; }           /* shrink image + column together */
+  .hero{ grid-template-columns: 1fr; row-gap: 16px; }
+  .portrait{ margin: 0 auto; }         /* center the whole portrait block */
+}
+
+  /* Helper class to color text in orange inside content */
+  .orange{ color:var(--link) }
+
+  /* Smooth theme transition */
+  :root { --theme-dur: 1500ms; --theme-ease: cubic-bezier(.2,.6,.2,1); }
+  html, body {
+    transition:
+      background-color var(--theme-dur) var(--theme-ease),
+      color            var(--theme-dur) var(--theme-ease);
+  }
+  header, .card, .links a, .hero img, .pub, .pub-item, .thumb,
+  .menu a, .top-icons a, hr {
+    transition:
+      background-color var(--theme-dur) var(--theme-ease),
+      color            var(--theme-dur) var(--theme-ease),
+      border-color     var(--theme-dur) var(--theme-ease),
+      box-shadow       var(--theme-dur) var(--theme-ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html, body,
+    header, .card, .links a, .hero img, .pub, .pub-item, .thumb,
+    .menu a, .top-icons a, hr { transition: none !important; }
+  }
+
+  .subtitle a { color: var(--fg); text-decoration: none; }
+  .subtitle a:hover { color: var(--link); text-decoration: none; }
+
+  /* NEWS (clean list) */
+  .news { list-style: none; padding: 0; margin: 8px 0 22px; position:relative; }
+  .news-item {
+    position:relative;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 22px;
+    padding: 14px 0 14px 28px; /* room for line + dot */
+  }
+  .news-date { font-weight: 700; color: var(--fg); white-space: nowrap; }
+  .news-text { color: var(--fg); }
+  .news-text a { color: var(--link); text-decoration: none; }
+  .news-text a:hover { text-decoration: underline; }
+
+  /* Vertical timeline: line + perfectly centered dots */
+  .news::after{
+    content:""; position:absolute; left:14px; top:0; bottom:0; width:2px;
+    background: color-mix(in srgb, var(--fg) 18%, transparent);
+  }
+  .news-item::before{
+    content:""; position:absolute; left:9px; top:50%; width:10px; height:10px; margin-top:-5px;
+    border-radius:50%; background: var(--link); box-shadow: 0 0 0 2px var(--bg);
+  }
+
+  @media (max-width: 660px) {
+    .news-item { grid-template-columns: 120px 1fr; gap: 14px; }
+    .news-date { font-weight: 600; }
+  }
+
+  /* KEYWORD TAGS / CITE (for publications page) */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+  .tag{font-size:12px;border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--fg)}
+  .tag:hover{border-color:var(--link);color:var(--link)}
+  .cite{margin-top:10px}
+  .cite summary{cursor:pointer; display:inline-block; padding:4px 10px; border:1px solid var(--border); border-radius:999px}
+  .cite summary:hover{border-color:var(--link); color:var(--link)}
+  .cite[open] summary{border-color:var(--link); color:var(--link)}
+  .bibtex{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;overflow:auto}
+
+/* container for the arXiv / PDF / Code buttons */
+.chips{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+
+   </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <!-- LEFT: icons -->
+      <div class="top-icons" aria-label="Quick links">
+        <a href="mailto:mhanisch@caltech.edu" title="Email" aria-label="Email" rel="noopener">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=YOUR_ID" title="Google Scholar" aria-label="Google Scholar" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 1.5 8.5 12 14l8.5-4.5L12 3Zm-7 7.8v3.7c0 1 .8 1.9 2.2 2.5C8.1 17.8 9.9 18 12 18s3.9-.2 4.8-1s1.2-1.5 1.2-2.5v-3.2L12 15l-7-4.2Z"/></svg>
+        </a>
+        <a href="https://github.com/YOUR_USERNAME" title="GitHub" aria-label="GitHub" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12 11.5 11.5 0 0 0 8.36 22.93c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.39-3.87-1.39-.53-1.36-1.3-1.73-1.3-1.73-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.22 1.78 1.22 1.04 1.77 2.74 1.26 3.41.96.1-.77.4-1.26.72-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.2-3.1-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.19a11.1 11.1 0 0 1 5.83 0c2.22-1.5 3.2-1.19 3.2-1.19.63 1.59.23 2.76.11 3.05.75.81 1.2 1.84 1.2 3.1 0 4.42-2.7 5.41-5.27 5.69.41.36.76 1.07.76 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/YOUR_USERNAME" title="LinkedIn" aria-label="LinkedIn" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8.5h4V23h-4V8.5Zm8 0h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V23h-4v-6.5c0-1.55-.03-3.55-2.17-3.55-2.17 0-2.5 1.7-2.5 3.45V23h-4V8.5Z"/></svg>
+        </a>
+        <a href="https://x.com/YOUR_USERNAME" title="X" aria-label="X" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h4.6l5 7 5.8-7H21l-7 8.6L21 21h-4.6l-5.2-7.3L5 21H3l7-8.6L3 3z"/></svg>
+        </a>
+      </div>
+
+      <!-- RIGHT: menu -->
+      <nav class="menu">
+        <a href="#about" class="active">About</a>
+        <a href="publications.html">Publications</a>
+        <a href="cv.html">CV</a>
+        <button class="toggle" id="themeToggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section id="about">
+      <div class="hero">
+        <!-- LEFT column: portrait + email -->
+        <div class="portrait">
+          <img src="IMG_0937.jpeg" alt="Profile" />
+          <button type="button" class="email-copy" data-email="mhanisch@caltech.edu"
+                  aria-label="Copy email to clipboard" title="Click to copy">
+            mhanisch@caltech.edu
+          </button>
+        </div>
+
+        <!-- RIGHT column: text -->
+        <div>
+          <h1> Maurice Hanisch</h1>
+          <div class="subtitle">
+            <a href="https://www.cms.caltech.edu/" target="_blank" rel="noopener">Computing and Mathematical Sciences Department</a> – Caltech
+          </div>
+          <div data-include="content/bio.html" class="prose"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section id="news">
+      <h2>News</h2>
+      <div data-include="content/news.html"></div>
+    </section>
+
+    <!-- SELECTED PUBLICATIONS ON HOME -->
+    <section id="selected-publications">
+      <h2>Selected publications</h2>
+      <div data-include="content/selected_publications.html"></div>
+      <p><a href="publications.html">See all publications →</a></p>
+    </section>
+
+    <footer></footer>
+  </main>
+
+  <script>
+    // Load partials
+    async function includePartials(){
+      const nodes=document.querySelectorAll('[data-include]');
+      for(const n of nodes){
+        const url=n.getAttribute('data-include');
+        try{
+          const res=await fetch(url);
+          if(!res.ok) throw new Error(res.status+" "+res.statusText);
+          n.innerHTML=await res.text();
+        }catch(err){
+          n.innerHTML = `<div style="color:var(--muted)">Could not load <code>${url}</code>: ${err.message}</div>`;
+        }
+      }
+    }
+
+    // Theme toggle with persistence
+    (function(){
+      const root=document.documentElement;
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved=localStorage.getItem('theme');
+      const start = saved || (prefersDark ? 'dark' : 'light');
+      root.setAttribute('data-theme', start);
+
+      const btn = document.querySelector('#themeToggle, #theme-toggle, .toggle');
+      function setIcon(theme){ if(btn) btn.textContent = theme==='dark' ? '☀️' : '🌙'; }
+      setIcon(start);
+
+      if(btn){
+        btn.addEventListener('click',()=>{
+          const now = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', now);
+          localStorage.setItem('theme', now);
+          setIcon(now);
+        });
+      }
+    })();
+
+    includePartials();
+
+    // Click-to-copy email under portrait
+    document.querySelectorAll('.email-copy').forEach(btn=>{
+      btn.addEventListener('click', async () => {
+        const email = btn.dataset.email || btn.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(email);
+          const old = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(()=> btn.textContent = old, 1200);
+        } catch (e) {
+          window.prompt('Press Ctrl/Cmd+C to copy:', email);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+  <!--
+  Create these files:
+
+  content/bio.html
+  ----------------
+  <p>I’m a process engineer focused on <strong>medical technology</strong>, with experience in nanoparticles, hydrogels, and separation processes. I enjoy bridging rigorous chemical engineering with human-centered healthcare problems.</p>
+
+  content/selected_publications.html
+  ----------------------------------
+  <ol class="pubs">
+    <li class="pub">
+      <div class="badge">Thesis</div>
+      <div class="title">Drug Delivery with T Cells: Synthetic Biology-Informed Transport</div>
+      <div class="meta">Gaia · Wyss Institute · 2025</div>
+      <div class="links"><a href="#">Abstract</a><a href="#">PDF</a></div>
+    </li>
+    <li class="pub">
+      <div class="badge">Report</div>
+      <div class="title">Bone Adhesives: Materials, Mechanisms, and Clinical Outlook</div>
+      <div class="meta">Gaia · 2025</div>
+      <div class="links"><a href="#">Slides</a><a href="#">Report</a></div>
+    </li>
+  </ol>
+
+  publications.html (new page)
+  ----------------------------
+  <!doctype html><html lang="en" data-theme="light">
+  <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Publications — Gaia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui} [data-theme="light"]{--bg:#fff;--fg:#111827;--border:#e5e7eb} [data-theme="dark"]{--bg:#0b1020;--fg:#e5e7eb;--border:#1f2937} .wrap{max-width:860px;margin:0 auto;padding:22px} a{color:inherit} .pubs{list-style:none;padding:0} .pub{border-bottom:1px solid var(--border);padding:14px 0}</style>
+  </head>
+  <body><div class="wrap">
+    <p><a href="indexmomo.html">← Back</a></p>
+    <h1>All publications</h1>
+    <div data-include="content/publications.html"></div>
+  </div>
+  <script>async function inc(){for(const n of document.querySelectorAll('[data-include]')){const u=n.getAttribute('data-include');n.innerHTML=await (await fetch(u)).text()} } inc()</script>
+  </body></html>
+
+  cv.html (new page)
+  ------------------
+  <!doctype html><html lang="en" data-theme="light">
+  <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>CV — Gaia</title>
+    <style>html,body{height:100%;margin:0} iframe{border:0;width:100%;height:100%}</style>
+  </head>
+  <body>
+    <iframe src="cv.pdf" title="Gaia CV"></iframe>
+  </body></html>
+
+  content/publications.html
+  -------------------------
+  <ol class="pubs">
+    <!-- Full publications list goes here (same structure as selected but longer) -->
+  </ol>
+  -->
+
