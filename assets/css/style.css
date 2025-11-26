@@ -145,6 +145,11 @@ header {
   display: block;
 }
 
+.top-icons a:last-child {
+  margin-left: -6px;
+  transform: translateY(1.9px);
+}
+
 .top-icons a:hover {
   color: var(--link)
 }
@@ -429,10 +434,10 @@ hr {
 .news-item::before {
   content: "";
   position: absolute;
-  left: 9px;
+  left: 7.7px;
   top: 22px;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--link);
   z-index: 1;
@@ -454,6 +459,22 @@ hr {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.pub-year {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  border-top: 2px solid var(--border);
+  color: var(--fg);
+}
+
+.pub-year:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 .pub-row {
@@ -537,6 +558,34 @@ hr {
   color: #fff;
   /* White text on orange background */
   text-decoration: none;
+}
+
+/* Year divider for publications */
+.year-divider {
+  display: flex;
+  align-items: center;
+  margin: 48px 0 24px 0;
+  list-style: none;
+}
+
+.year-divider:first-child {
+  margin-top: 0;
+}
+
+.year-divider::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.year-divider span {
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--muted);
+  padding-left: 24px;
+  white-space: nowrap;
+  opacity: 0.6;
 }
 
 @media (max-width: 660px) {
