@@ -4,21 +4,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maurice — Research & Work</title>
-  <meta name="description"
-    content="Personal academic-style website with single-column scroll, dark mode, and modular content." />
+  <title>Mentoring & Teaching — Maurice</title>
+  <meta name="description" content="Students mentored and courses taught by Maurice D. Hanisch" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.min.css?v=20251126">
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-  <style>
-    /* Fix for social icons sizing */
-    .top-icons a {
-      /* Removed inline override, handled in style.css */
-    }
-  </style>
 </head>
 
 <body>
@@ -60,9 +53,9 @@
 
       <!-- RIGHT: menu -->
       <nav class="menu">
-        <a href="index.html" class="active">Home</a>
+        <a href="index.html">Home</a>
         <a href="publications.html">Publications</a>
-        <a href="mentoring.html">Mentoring</a>
+        <a href="mentoring.html" class="active">Mentoring</a>
         <a href="assets/pdf/Maurice_Hanisch_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
         <button class="toggle" id="themeToggle">🌙</button>
       </nav>
@@ -70,44 +63,16 @@
   </header>
 
   <main class="container">
-    <!-- HERO -->
-    <section id="about">
-      <div class="hero">
-        <!-- LEFT column: portrait + email -->
-        <div class="portrait">
-          <img src="assets/img/PFP.webp" alt="Profile" width="180" height="180" />
-          <button type="button" class="email-copy" data-email="mhanisch@caltech.edu"
-            aria-label="Copy email to clipboard" title="Click to copy">
-            mhanisch@caltech.edu
-          </button>
-        </div>
+    <section id="mentoring">
+      <h1>Mentoring & Teaching</h1>
+      <p class="intro">I enjoy mentoring students and teaching. If you're interested in working together, reach out!</p>
+      
+      <h2>Current Students</h2>
+      <div data-include="content/mentoring.html"></div>
 
-        <!-- RIGHT column: text -->
-        <div>
-          <h1> Maurice D. Hanisch</h1>
-          <div class="subtitle">
-            <a href="https://www.cms.caltech.edu/" target="_blank" rel="noopener">Computing and Mathematical Sciences
-              Department</a> – Caltech
-          </div>
-          <div data-include="content/bio.html" class="prose"></div>
-        </div>
-      </div>
+      <h2>Teaching</h2>
+      <div data-include="content/teaching.html"></div>
     </section>
-
-    <!-- NEWS -->
-    <section id="news">
-      <h2>News</h2>
-      <div data-include="content/news.html"></div>
-    </section>
-
-    <!-- SELECTED PUBLICATIONS ON HOME -->
-    <section id="selected-publications">
-      <h2>Selected publications</h2>
-      <div data-include="content/selected_publications.html"></div>
-      <p><a href="publications.html">See all publications →</a></p>
-    </section>
-
-    <footer></footer>
   </main>
 
   <script src="assets/js/main.min.js"></script>
