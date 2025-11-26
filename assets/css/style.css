@@ -174,11 +174,20 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 30px;
   margin: 0 0 10px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border)
+  padding-top: 18px;
+  position: relative;
 }
+
+/* h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  border-top: 1px solid var(--border);
+} */
 
 .subtitle {
   color: var(--muted)
@@ -193,6 +202,18 @@ h2 {
   column-gap: 40px;
   align-items: start;
   margin-top: 16px;
+}
+
+/* bio text - reduce bottom margin */
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* Add full-width line after about section */
+#about {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: -20px;
 }
 
 /* avatar */
@@ -434,10 +455,10 @@ hr {
 .news-item::before {
   content: "";
   position: absolute;
-  left: 7.7px;
+  left: 9.9px;
   top: 22px;
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--link);
   z-index: 1;
@@ -459,6 +480,7 @@ hr {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: -30px;
 }
 
 .pub-year {
