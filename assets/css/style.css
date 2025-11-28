@@ -339,6 +339,51 @@ footer {
   }
 
   /* center the whole portrait block */
+  
+  /* Mobile header fixes */
+  .nav {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+  
+  .top-icons {
+    order: 2;
+    margin-left: 0;
+    gap: 16px;
+  }
+  
+  .menu {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .menu a {
+    font-size: 14px;
+  }
+  
+  /* Smaller headings on mobile */
+  h1 {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  /* Container padding */
+  .container {
+    padding: 16px;
+  }
 }
 
 /* Helper class to color text in orange inside content */
@@ -466,12 +511,28 @@ hr {
 
 @media (max-width: 660px) {
   .news-item {
-    grid-template-columns: 120px 1fr;
-    gap: 14px;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding-left: 24px;
   }
 
   .news-date {
     font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .news-text {
+    font-size: 14px;
+  }
+  
+  .news::after {
+    left: 10px;
+  }
+  
+  .news-item::before {
+    left: 6.5px;
+    width: 7px;
+    height: 7px;
   }
 }
 
@@ -618,6 +679,26 @@ hr {
 
   .pub-badges {
     flex-direction: row;
+  }
+  
+  .pub-title {
+    font-size: 17px;
+  }
+  
+  .pub-authors {
+    font-size: 14px;
+  }
+  
+  .pub-venue {
+    font-size: 14px;
+  }
+  
+  .pub-buttons {
+    flex-wrap: wrap;
+  }
+  
+  .year-divider span {
+    font-size: 26px;
   }
 }
 
@@ -804,4 +885,63 @@ footer a {
 
 footer a:hover {
   color: var(--link);
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+  :root {
+    --avatar: 100px;
+  }
+  
+  .container {
+    padding: 12px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  .menu {
+    gap: 8px;
+  }
+  
+  .menu a {
+    font-size: 13px;
+  }
+  
+  .top-icons {
+    gap: 12px;
+  }
+  
+  .top-icons a {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .top-icons a svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .news-item {
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+  }
+  
+  .news-date {
+    font-size: 12px;
+  }
+  
+  footer {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  footer p {
+    font-size: 0.45rem;
+  }
 }
