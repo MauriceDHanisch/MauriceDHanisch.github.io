@@ -2,7 +2,7 @@
 /* avatar size drives image AND email width */
 :root {
   --maxw: 860px;
-  --avatar: 180px;
+  --avatar: clamp(140px, 30vw, 200px);
 }
 
 /* <-- add --avatar */
@@ -884,11 +884,11 @@ a.student-card:hover .student-name {
 /* Footer */
 footer {
   position: fixed;
-  bottom: 0.75rem;
-  right: 0.75rem;
+  bottom: 8px;
+  right: 8px;
   z-index: 100;
-  padding: 0.3rem 0;
-  opacity: 0.6;
+  padding: 2px 0;
+  opacity: 0.2;
   transition: opacity 0.2s;
 }
 
@@ -897,10 +897,11 @@ footer:hover {
 }
 
 footer p {
-  font-size: 0.5rem;
+  font-size: min(8px, 0.7vw);
   color: var(--muted);
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 footer a {
