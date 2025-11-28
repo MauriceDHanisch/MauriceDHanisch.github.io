@@ -773,3 +773,37 @@ a.student-card:hover .student-name {
     padding-left: 16px;
   }
 }
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 100;
+  background: var(--bg);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+footer:hover {
+  opacity: 1;
+}
+
+footer p {
+  font-size: 0.5rem;
+  color: var(--muted);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+footer a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+footer a:hover {
+  color: var(--link);
+}
