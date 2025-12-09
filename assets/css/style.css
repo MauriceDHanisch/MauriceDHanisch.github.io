@@ -744,7 +744,7 @@ hr {
   margin-bottom: 20px;
 }
 
-a.student-card {
+.student-card {
   display: block;
   background: var(--card);
   border: 1px solid var(--border);
@@ -752,6 +752,10 @@ a.student-card {
   padding: 7.5px 15px 10px;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
   text-decoration: none;
+  position: relative;
+}
+
+a.student-card {
   cursor: pointer;
 }
 
