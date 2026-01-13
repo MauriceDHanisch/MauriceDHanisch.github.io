@@ -51,3 +51,25 @@ document.querySelectorAll('.email-copy').forEach(btn => {
         }
     });
 });
+
+// Fetch latest update date from GitHub
+(async function() {
+    const el = document.getElementById('last-updated');
+    if (!el) return;
+    
+    try {
+        const res = await fetch('https://api.github.com/repos/MauriceDHanisch/MauriceDHanisch.github.io/branches/main');
+        if (!res.ok) throw new Error('API Error');
+        const data = await res.json();
+        const lastCommitDate = data.commit.commit.author.date;
+        const date = new Date(lastCommitDate);
+        
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        el.innerHTML = `Last updated:&nbsp;&nbsp;${date.toLocaleDateString('en-US', options)}`;
+    } catch (e) {
+        // Fallback
+        const date = new Date(document.lastModified);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        el.innerHTML = `Last updated:&nbsp;&nbsp;${date.toLocaleDateString('en-US', options)}`;
+    }
+})();
