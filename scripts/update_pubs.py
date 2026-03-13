@@ -11,7 +11,7 @@ SELECTED_FILE = os.path.join(OUTPUT_DIR, 'selected_publications.html')
 
 # List of publication indices to include in selected publications (1-indexed, based on chronological order)
 # Edit this list to select which publications appear on the home page
-SELECTED_INDICES = [1, 3, 4]  # e.g., [1, 3, 5] for 1st, 3rd, and 5th publications
+SELECTED_INDICES = [1, 2, 3]  # e.g., [1, 3, 5] for 1st, 3rd, and 5th publications
 
 def extract_year_from_text(text):
     """Extract a 4-digit year (2000-2099) from text like 'NeurIPS 2025' or 'arXiv:2411.16228'."""
