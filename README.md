@@ -4,9 +4,14 @@ This repository contains several Python scripts to automate content updates and 
 
 ## Requirements
 
-Install the dependencies:
+This project uses [uv](https://docs.astral.sh/uv/). Sync the environment:
 ```bash
-pip install -r scripts/requirements.txt
+uv sync
+```
+
+Run scripts with `uv run` (or activate `.venv` directly):
+```bash
+uv run python scripts/update_pubs.py
 ```
 
 ## Scripts

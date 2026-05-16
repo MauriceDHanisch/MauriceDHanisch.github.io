@@ -109,7 +109,7 @@ def format_publication(pub):
         url = f"https://scholar.google.com/citations?view_op=view_citation&hl=en&user={AUTHOR_ID}&citation_for_view={pub.get('author_pub_id')}"
 
     # Badge logic (simple heuristic)
-    badge = "Paper"
+    badge = "Journal"
     venue_lower = venue.lower()
     if "thesis" in title.lower() or "thesis" in venue_lower:
         badge = "Thesis"
