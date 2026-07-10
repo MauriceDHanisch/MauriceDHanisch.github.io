@@ -1,0 +1,127 @@
+<div class="oss">
+
+  <div class="oss-category"><span>Quantum Chemistry &amp; Materials Science</span></div>
+  <div class="oss-projects">
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://gitlab.com/QEF/q-e" target="_blank" rel="noopener">Quantum ESPRESSO</a>
+        <span class="oss-stars" data-stars-repo="gitlab:QEF/q-e">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">Plane-wave DFT suite for electronic structure calculations.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib">
+          <a class="oss-pr-badge pending" href="https://gitlab.com/QEF/q-e/-/merge_requests/2877" target="_blank" rel="noopener">!2877</a>
+          <div class="oss-contrib-text">Found and fixed a memory-alignment bug in the FFT backend that silently corrupted wavefunction transforms on optimized CPU builds, breaking correctness of the SCF calculation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://github.com/tblite/tblite" target="_blank" rel="noopener">tblite</a>
+        <span class="oss-stars" data-stars-repo="github:tblite/tblite">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">Light-weight tight-binding DFT framework.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib">
+          <a class="oss-pr-badge merged" href="https://github.com/tblite/tblite/pull/298" target="_blank" rel="noopener">#298</a>
+          <div class="oss-contrib-text">Fixed spin-polarized (open-shell) restarts silently discarding the converged wavefunction and re-running the full SCF from scratch instead of resuming.</div>
+        </div>
+        <div class="oss-contrib">
+          <a class="oss-pr-badge merged" href="https://github.com/tblite/tblite/pull/341" target="_blank" rel="noopener">#341</a>
+          <div class="oss-contrib-text">Found and fixed an OpenMP symbol collision between the published wheel and PyTorch that corrupted SCF convergence when both were imported together.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oss-category"><span>Scientific Machine Learning</span></div>
+  <div class="oss-projects">
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://github.com/neuraloperator/neuraloperator" target="_blank" rel="noopener">Neural Operator</a>
+        <span class="oss-stars" data-stars-repo="github:neuraloperator/neuraloperator">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">Official library for Fourier Neural Operators.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib">
+          <a class="oss-pr-badge merged" href="https://github.com/neuraloperator/neuraloperator/pull/715" target="_blank" rel="noopener">#715</a>
+          <div class="oss-contrib-text">Added GroupNorm support to the reference FNO implementation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oss-category"><span>Systems</span></div>
+  <div class="oss-projects">
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://github.com/CTSRD-CHERI/cheribsd" target="_blank" rel="noopener">CheriBSD</a>
+        <span class="oss-stars" data-stars-repo="github:CTSRD-CHERI/cheribsd">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">FreeBSD kernel and userland hardened for CHERI capability hardware.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib">
+          <a class="oss-pr-badge merged" href="https://github.com/CTSRD-CHERI/cheribsd/pull/2448" target="_blank" rel="noopener">#2448</a>
+          <div class="oss-contrib-text">Closed a vulnerability in libc's allocator (jemalloc) where a narrowed pointer could bypass CHERI's hardware memory protection.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oss-category"><span>Others</span></div>
+  <div class="oss-projects">
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://github.com/asheshgoplani/agent-deck" target="_blank" rel="noopener">agent-deck</a>
+        <span class="oss-stars" data-stars-repo="github:asheshgoplani/agent-deck">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">Terminal session manager for AI coding agents.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib oss-contrib-wide">
+          <div class="oss-multi">
+            <a class="oss-pr-badge merged" href="https://github.com/asheshgoplani/agent-deck/pull/1478" target="_blank" rel="noopener">#1478</a>
+            <a class="oss-pr-badge merged" href="https://github.com/asheshgoplani/agent-deck/pull/1402" target="_blank" rel="noopener">#1402</a>
+            <a class="oss-pr-badge merged" href="https://github.com/asheshgoplani/agent-deck/pull/1355" target="_blank" rel="noopener">#1355</a>
+            <a class="oss-pr-badge merged" href="https://github.com/asheshgoplani/agent-deck/pull/1354" target="_blank" rel="noopener">#1354</a>
+            <a class="oss-pr-badge merged" href="https://github.com/asheshgoplani/agent-deck/pull/1334" target="_blank" rel="noopener">#1334</a>
+          </div>
+          <div class="oss-contrib-text">Fixed keybinding conflicts, data-loss risks, and silent failures across the TUI.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="oss-project">
+      <div class="oss-project-header">
+        <a class="oss-project-name" href="https://github.com/qiskit-community/qiskit-qec" target="_blank" rel="noopener">Qiskit QEC</a>
+        <span class="oss-stars" data-stars-repo="github:qiskit-community/qiskit-qec">
+          <svg class="oss-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.99 6.06 6.69.97-4.84 4.72 1.14 6.66L12 17.77l-5.98 3.14 1.14-6.66-4.84-4.72 6.69-.97L12 2.5z"/></svg>
+          <span class="oss-star-count"></span>
+        </span>
+      </div>
+      <div class="oss-project-desc">Quantum error correction framework.</div>
+      <div class="oss-contribs">
+        <div class="oss-contrib">
+          <a class="oss-pr-badge merged" href="https://github.com/qiskit-community/qiskit-qec/pull/393" target="_blank" rel="noopener">#393</a>
+          <div class="oss-contrib-text">Fixed a broken equality check that made identical decoding-graph edges compare as unequal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

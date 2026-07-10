@@ -35,7 +35,7 @@ async function includePartials() {
     }
 })();
 
-includePartials();
+const partialsLoaded = includePartials();
 
 // Click-to-copy email under portrait
 document.querySelectorAll('.email-copy').forEach(btn => {
@@ -72,4 +72,42 @@ document.querySelectorAll('.email-copy').forEach(btn => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         el.innerHTML = `Last updated:&nbsp;&nbsp;${date.toLocaleDateString('en-US', options)}`;
     }
+})();
+
+// Star counts for open-source contribution badges (populated after partials load)
+(function () {
+    function formatStarCount(n) {
+        if (n < 1000) return String(n);
+        const k = n / 1000;
+        return (k >= 10 ? Math.round(k) : k.toFixed(1).replace(/\.0$/, '')) + 'k';
+    }
+
+    async function loadStarCounts() {
+        const nodes = document.querySelectorAll('[data-stars-repo]');
+        for (const el of nodes) {
+            const [host, path] = el.dataset.starsRepo.split(':');
+            const countEl = el.querySelector('.oss-star-count');
+            if (!countEl) continue;
+
+            try {
+                let count;
+                if (host === 'github') {
+                    const res = await fetch('https://api.github.com/repos/' + path);
+                    if (!res.ok) throw new Error(String(res.status));
+                    count = (await res.json()).stargazers_count;
+                } else if (host === 'gitlab') {
+                    const res = await fetch('https://gitlab.com/api/v4/projects/' + encodeURIComponent(path));
+                    if (!res.ok) throw new Error(String(res.status));
+                    count = (await res.json()).star_count;
+                } else {
+                    continue;
+                }
+                countEl.textContent = formatStarCount(count);
+            } catch (e) {
+                el.hidden = true;
+            }
+        }
+    }
+
+    partialsLoaded.then(loadStarCounts);
 })();
