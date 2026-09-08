@@ -11,7 +11,17 @@ SELECTED_FILE = os.path.join(OUTPUT_DIR, 'selected_publications.html')
 
 # List of publication indices to include in selected publications (1-indexed, based on chronological order)
 # Edit this list to select which publications appear on the home page
-SELECTED_INDICES = [3, 4, 1]  # e.g., [1, 3, 5] for 1st, 3rd, and 5th publications
+SELECTED_INDICES = [1, 2, 5]  # e.g., [1, 3, 5] for 1st, 3rd, and 5th publications
+
+# Google Scholar usually exposes only the publication year. These dates provide
+# a stable within-year order for the publications currently listed on the site.
+PUBLICATION_DATE_OVERRIDES = {
+    'Learning the Kohn-Sham map with neural operators for quasi-linear scaling density functional theory': '2026-08-24',
+    'Soft information decoding with superconducting qubits': '2026-05-08',
+    'An Orbital-based Geometric Deep Learning Framework for Periodic Materials': '2026-04-23',
+    'MGB: The Material Generation Benchmark': '2025-12-06',
+    'OrbitAll: a unified quantum mechanical representation deep learning framework for all molecular systems': '2025-07-05',
+}
 
 def extract_year_from_text(text):
     """Extract a 4-digit year (2000-2099) from text like 'NeurIPS 2025' or 'arXiv:2411.16228'."""
@@ -46,15 +56,21 @@ def get_pub_year(pub):
     
     return 'N/A'
 
-def get_pub_sort_key(pub, original_index=0):
-    """Get a sortable date key from publication (year, original_index).
-    Uses year only and preserves original retrieval order within each year.
-    Google Scholar returns newer publications first, so lower index = newer."""
+def get_pub_date(pub):
+    """Return the best available publication date for sorting."""
+    title = pub['bib'].get('title', '')
+    override = PUBLICATION_DATE_OVERRIDES.get(title)
+    if override:
+        return datetime.strptime(override, '%Y-%m-%d')
+
     year_str = get_pub_year(pub)
-    year = int(year_str) if year_str != 'N/A' else 0
-    # With reverse=True sorting: higher year first, then lower index first (newer first)
-    # Negate index so that with reverse=True, lower original index comes first
-    return (year, -original_index)
+    if year_str != 'N/A':
+        return datetime(int(year_str), 1, 1)
+    return datetime.min
+
+def get_pub_sort_key(pub, original_index=0):
+    """Sort publications newest first, using retrieval order only as a tie-breaker."""
+    return (get_pub_date(pub), -original_index)
 
 def fetch_publications(author_id):
     print(f"Fetching publications for author ID: {author_id}...")
@@ -187,7 +203,7 @@ def format_publication(pub):
 def generate_html(pubs, limit=None, selected_indices=None):
     html_list = ['<ol class="pubs">']
     
-    # Sort by year descending, preserving original order within each year
+    # Sort by publication date descending.
     indexed_pubs = [(i, pub) for i, pub in enumerate(pubs)]
     sorted_indexed = sorted(indexed_pubs, key=lambda x: get_pub_sort_key(x[1], x[0]), reverse=True)
     sorted_pubs = [pub for _, pub in sorted_indexed]
@@ -198,7 +214,12 @@ def generate_html(pubs, limit=None, selected_indices=None):
         for idx in selected_indices:
             if 1 <= idx <= len(sorted_pubs):
                 filtered_pubs.append(sorted_pubs[idx - 1])  # Convert to 0-indexed
-        sorted_pubs = filtered_pubs
+        sorted_pubs = sorted(
+            enumerate(filtered_pubs),
+            key=lambda item: get_pub_sort_key(item[1], item[0]),
+            reverse=True,
+        )
+        sorted_pubs = [pub for _, pub in sorted_pubs]
     
     current_year = None
     count = 0
@@ -238,7 +259,7 @@ def main():
             filled_pubs.append(pub)
     
     # Print publication list with indices for reference
-    # Sort by year descending, preserving original order within each year
+    # Sort by publication date descending.
     indexed_pubs = [(i, pub) for i, pub in enumerate(filled_pubs)]
     sorted_indexed = sorted(indexed_pubs, key=lambda x: get_pub_sort_key(x[1], x[0]), reverse=True)
     sorted_pubs = [pub for _, pub in sorted_indexed]
