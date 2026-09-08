@@ -23,6 +23,17 @@ PUBLICATION_DATE_OVERRIDES = {
     'OrbitAll: a unified quantum mechanical representation deep learning framework for all molecular systems': '2025-07-05',
 }
 
+EQUAL_CONTRIBUTION_AUTHORS = {
+    'Learning the Kohn-Sham map with neural operators for quasi-linear scaling density functional theory': {
+        'Danish Khan',
+        'Maurice D. Hanisch',
+    },
+    'OrbitAll: a unified quantum mechanical representation deep learning framework for all molecular systems': {
+        'Beom Seok Kang',
+        'Vignesh C. Bhethanabotla',
+    },
+}
+
 def extract_year_from_text(text):
     """Extract a 4-digit year (2000-2099) from text like 'NeurIPS 2025' or 'arXiv:2411.16228'."""
     if not text:
@@ -96,6 +107,14 @@ def format_author_name(name):
             new_parts.append(part)
     return " ".join(new_parts)
 
+def normalize_author_name(name):
+    """Normalize author names used for formatting and metadata overrides."""
+    normalized = format_author_name(name)
+    for variant in ["Maurice Hanisch", "M. Hanisch", "M. D. Hanisch"]:
+        if normalized == variant:
+            return "Maurice D. Hanisch"
+    return normalized
+
 def format_publication(pub):
     # Extract details (publications are already filled in main())
     bib = pub['bib']
@@ -166,19 +185,19 @@ def format_publication(pub):
         authors = authors.replace(" and ", ", ")
     
     author_list = authors.split(", ")
-    formatted_authors = [format_author_name(a) for a in author_list]
+    formatted_authors = [normalize_author_name(a) for a in author_list]
+
+    equal_authors = EQUAL_CONTRIBUTION_AUTHORS.get(title, set())
+    formatted_authors = [
+        f"{author}*" if author in equal_authors else author
+        for author in formatted_authors
+    ]
     
     # Join with commas, but use "and" before the last author
     if len(formatted_authors) > 1:
         authors = ", ".join(formatted_authors[:-1]) + ", and " + formatted_authors[-1]
     else:
         authors = formatted_authors[0] if formatted_authors else "Unknown Authors"
-
-    # Normalize name variations to "Maurice D. Hanisch"
-    name_variations = ["Maurice Hanisch", "M. Hanisch", "M. D. Hanisch"]
-    for variant in name_variations:
-        if variant in authors:
-            authors = authors.replace(variant, "Maurice D. Hanisch")
 
     # Bold and underline author name
     if "Maurice D. Hanisch" in authors:
