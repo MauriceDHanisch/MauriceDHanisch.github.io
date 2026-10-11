@@ -803,6 +803,50 @@ a.student-card:hover .student-name {
   flex-shrink: 0;
 }
 
+.past-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.past-card {
+  background: transparent;
+  padding: 8px 14px 10px;
+}
+
+.past-card .student-header {
+  margin-bottom: 4px;
+}
+
+.past-card .student-name {
+  font-size: 16px;
+  color: var(--fg);
+}
+
+a.past-card:hover .student-name {
+  color: var(--link);
+}
+
+.past-card .student-info {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.past-card .student-badge {
+  font-size: 10px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--muted) 12%, transparent);
+}
+
+.student-next {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--link);
+}
+
 /* TEACHING GRID */
 .teaching-grid {
   display: grid;
